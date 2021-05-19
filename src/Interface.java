@@ -905,8 +905,6 @@ public class Interface extends javax.swing.JFrame {
 
     private void btnAdicionarReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarReqActionPerformed
         try{
-            int pos_setor = procurarIndiceSetor(cbSetorRequisicao.getSelectedItem().toString());
-
             if (txtQtdReq.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Campo QUANTIDADE está vazio!", "Atenção", JOptionPane.WARNING_MESSAGE);
             } else if (cbItemReq.getSelectedItem() == null) {
@@ -999,15 +997,17 @@ public class Interface extends javax.swing.JFrame {
         try {
             if (pedidos.get(pedido_selecionado).getStatus().equals(aguardando) && new String(passwordPedidos.getPassword()).equals(senha)) {
                 pedidos.get(pedido_selecionado).setStatus(finalizado);
-            } else if (new String(passwordPedidos.getPassword()) != senha) {
-                JOptionPane.showConfirmDialog(null, "Senha incorreta!", "Falha de acesso", JOptionPane.ERROR_MESSAGE);
-            } else {
+            }
+            else if (new String(passwordPedidos.getPassword()) != senha) {
+                JOptionPane.showMessageDialog(null, "Senha incorreta!", "Falha de acesso", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (pedidos.get(pedido_selecionado).getStatus() != aguardando && new String(passwordPedidos.getPassword()).equals(senha)){
                 JOptionPane.showMessageDialog(null, "Esse pedido já possui um status atribuido", "Atenção", JOptionPane.WARNING_MESSAGE);
             }
             preencherTabelaPedidos();
             passwordPedidos.setText("");
         } catch (IndexOutOfBoundsException ex) {
-            JOptionPane.showMessageDialog(null, "Nenhum pedido selecionado!");
+            JOptionPane.showMessageDialog(null, "Nenhum pedido selecionado!", "Atenção", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnFinalizarPedidosActionPerformed
 
@@ -1017,7 +1017,7 @@ public class Interface extends javax.swing.JFrame {
             if (pedidos.get(pedido_selecionado).getStatus().equals(aguardando) && new String(passwordPedidos.getPassword()).equals(senha)) {
                 pedidos.get(pedido_selecionado).setStatus(cancelado);
             } else if (new String(passwordPedidos.getPassword()) != senha) {
-                JOptionPane.showConfirmDialog(null, "Senha incorreta!", "Falha de acesso", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Senha incorreta!", "Falha de acesso", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Esse pedido já possui um status atribuido", "Atenção", JOptionPane.WARNING_MESSAGE);
             }
